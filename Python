@@ -1,0 +1,95 @@
+import random, time
+money=0
+ingredients = {"Banana":0 ,"Strawberry":0,"Milk":0,"Blueberry":0,"Apple":0,"Pear":0}
+def starting_menu():
+    print("Welcome to...")
+    time.sleep(0.5)
+    print("Smoothie Makers!")
+    while True:
+        print("What would you like to do?\n1.Make a smoothie.\n2.Collect ingredients.\n3.Show money.\n4.Leave")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            make_smoothie()
+        elif choice == "2":
+            collect_ingredients()
+        elif choice == "3":
+            show_money()
+        elif choice == "4":
+            print("Thanks for playing!")
+            return
+        else:
+            print("Invalid choice!")
+
+def show_money():
+    global money
+    print(f"You have ${money}.")
+
+def deduct_ingredients(ingredient_name,quantity):
+    pass #TBA later
+
+def collect_ingredients():
+    while True:
+        print("Where would you like to collect ingredients? 1.Basic Area\n 2.Advanced Area.\n3.Go back to main menu.")
+        area_choice = input("Enter your choice: ")
+        if area_choice == "1":
+            print("Heading to the basic area...\n")
+            time.sleep(1.5)
+            basic_area()
+        elif area_choice == "2":
+            print("Heading to the advanced area...\n")
+            time.sleep(1.5)
+            advanced_area()
+        elif area_choice == "3":
+            return
+        else:
+            print("Invalid choice!")
+
+def basic_area():
+    while True:
+        print("Welcome to the basic area!")
+        print("You can collect milk, banana, and strawberry here.")
+        print("What would you like to do?")
+        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu.\n")
+        scavenge_choice = input("Enter your choice: ")
+        if scavenge_choice == "1":
+            print("Scavenging for ingredients...")
+            time.sleep(2)
+            found_ingredient = random.choice(["Milk", "Banana", "Strawberry"])
+            print(f"You found {found_ingredient}!")
+            ingredients[found_ingredient] += 1
+        elif scavenge_choice == "2":
+            return
+        else:
+            print("Invalid choice!")
+
+def advanced_area():
+    while True:
+        print("Welcome to the advanced area!")
+        print("You can collect pear, apple, and blueberry here.")
+        print("What would you like to do?")
+        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu.\n")
+        scavenge_choice = input("Enter your choice:")
+        if scavenge_choice == "1":
+            print("Scavenging for ingredients...")
+            time.sleep(2)
+            # Changed ingredients to match the dictionary
+            found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
+            print(f"You found {found_ingredient}!")
+            ingredients[found_ingredient] += 1
+        elif scavenge_choice == "2":
+            return
+        else:
+            print("Invalid choice!")
+
+def make_smoothie():
+    global money, ingredients
+    print("Add ingredients to your smoothie:")
+    print("You have:")
+    for i in ingredients:
+        print(f"{i}:{ingredients[i]}")
+    print("Which ingredient would you like to add?")
+    ingredient_type = input("1.Banana 2.Strawberry 3.Milk\n4.Blueberry 5.Apple 6.Pear\n7.Finish making smoothie")
+    number_of_ingredient = input("How many would you like to add?\n")
+
+
+starting_menu()
