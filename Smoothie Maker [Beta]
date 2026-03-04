@@ -97,7 +97,7 @@ def make_smoothie():
         "5": "Apple",
         "6": "Pear"
     }
-    print("Add ingredients to your smoothie:")
+    print("\nAdd ingredients to your smoothie:")
     print("You have:")
     for i in ingredients:
         print(f"{i}:{ingredients[i]}")
