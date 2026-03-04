@@ -125,34 +125,34 @@ def make_smoothie():
      else:
         print("Invalid input! Enter a number from 1-7")
 
-def shop():
-    global money
-    item1_cost = 200
-    item2_cost = 500
-    print("Welcome to the shop!")
-    print("Here, you can buy upgrades for your blender and better cashiers!")
-    time.sleep(0.5)
-    print("What would you like to buy?")
-    print(f"1.Upgrade blender (Cost: ${item1_cost})\n2.Upgrade cashiers (Cost: ${item2_cost})\n3.Go back to main menu")
-    while True:
-        choice = input("Enter your choice: ")
-        if choice == "1":
-            if money >= item1_cost:
-                money -= item1_cost
-                print("Blender upgraded! You can now make smoothies faster!")
-                show_money()
-            else:
-                print("You don't have enough money to buy this item.")
-        elif choice == "2":
-            if money >= item2_cost:
-                money -= item2_cost
-                print("Cashiers upgraded! You can now serve customers faster!")
-                show_money()
-            else:
-                print("You don't have enough money to buy this item.")
-        elif choice == "3":
-            return
-        else:
-            print("Invalid choice!")
+# def shop():
+#     global money
+#     item1_cost = 200
+#     item2_cost = 500
+#     print("Welcome to the shop!")
+#     print("Here, you can buy upgrades for your blender and better cashiers!")
+#     time.sleep(0.5)
+#     print("What would you like to buy?")
+#     print(f"1.Upgrade blender (Cost: ${item1_cost})\n2.Upgrade cashiers (Cost: ${item2_cost})\n3.Go back to main menu")
+#     while True:
+#         choice = input("Enter your choice: ")
+#         if choice == "1":
+#             if money >= item1_cost:
+#                 money -= item1_cost
+#                 print("Blender upgraded! You can now make smoothies faster!")
+#                 show_money()
+#             else:
+#                 print("You don't have enough money to buy this item.")
+#         elif choice == "2":
+#             if money >= item2_cost:
+#                 money -= item2_cost
+#                 print("Cashiers upgraded! You can now serve customers faster!")
+#                 show_money()
+#             else:
+#                 print("You don't have enough money to buy this item.")
+#         elif choice == "3":
+#             return
+#         else:
+#             print("Invalid choice!")
 
 starting_menu()
