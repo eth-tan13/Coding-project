@@ -6,7 +6,7 @@ def starting_menu():
     time.sleep(0.5)
     print("Smoothie Makers!")
     while True:
-        print("What would you like to do?\n1.Make a smoothie.\n2.Collect ingredients.\n3.Show money.\n4.Leave")
+        print("\nWhat would you like to do?\n1.Make a smoothie.\n2.Collect ingredients.\n3.Show money.\n4.Leave")
         choice = input("Enter your choice: ")
         if choice == "1":
             make_smoothie()
@@ -21,15 +21,21 @@ def starting_menu():
             print("Invalid choice!")
 
 def show_money():
-    global money
     print(f"You have ${money}.")
 
-def deduct_ingredients(ingredient_name,quantity):
-    pass #TBA later
+def deduct_ingredients(ingredient_type, quantity, smoothie_ingredients):
+    if ingredients[ingredient_type] >= quantity:
+        ingredients[ingredient_type] -= quantity
+        for i in range(quantity):
+            smoothie_ingredients.append(ingredient_type)
+        print(f"Used {quantity} of {ingredient_type}.")
+
+    else:
+        print(f"Insufficient {ingredient_type}! You only have {ingredients[ingredient_type]}.")
 
 def collect_ingredients():
     while True:
-        print("Where would you like to collect ingredients? 1.Basic Area\n 2.Advanced Area.\n3.Go back to main menu.")
+        print("\nWhere would you like to collect ingredients?\n1.Basic Area\n2.Advanced Area.\n3.Go back to main menu.")
         area_choice = input("Enter your choice: ")
         if area_choice == "1":
             print("Heading to the basic area...\n")
@@ -45,11 +51,11 @@ def collect_ingredients():
             print("Invalid choice!")
 
 def basic_area():
+    print("Welcome to the basic area!")
+    print("You can collect milk, banana, and strawberry here.")
     while True:
-        print("Welcome to the basic area!")
-        print("You can collect milk, banana, and strawberry here.")
-        print("What would you like to do?")
-        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu.\n")
+        print("\nWhat would you like to do?")
+        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
         scavenge_choice = input("Enter your choice: ")
         if scavenge_choice == "1":
             print("Scavenging for ingredients...")
@@ -63,16 +69,15 @@ def basic_area():
             print("Invalid choice!")
 
 def advanced_area():
+    print("Welcome to the advanced area!")
+    print("You can collect pear, apple, and blueberry here.")
     while True:
-        print("Welcome to the advanced area!")
-        print("You can collect pear, apple, and blueberry here.")
-        print("What would you like to do?")
-        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu.\n")
-        scavenge_choice = input("Enter your choice:")
+        print("\nWhat would you like to do?")
+        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
+        scavenge_choice = input("Enter your choice: ")
         if scavenge_choice == "1":
             print("Scavenging for ingredients...")
             time.sleep(2)
-            # Changed ingredients to match the dictionary
             found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
             print(f"You found {found_ingredient}!")
             ingredients[found_ingredient] += 1
@@ -82,14 +87,70 @@ def advanced_area():
             print("Invalid choice!")
 
 def make_smoothie():
-    global money, ingredients
+    global money
+    smoothie_ingredients = []
+    ingredient_mapping = {
+        "1": "Banana",
+        "2": "Strawberry",
+        "3": "Milk",
+        "4": "Blueberry",
+        "5": "Apple",
+        "6": "Pear"
+    }
     print("Add ingredients to your smoothie:")
     print("You have:")
     for i in ingredients:
         print(f"{i}:{ingredients[i]}")
-    print("Which ingredient would you like to add?")
-    ingredient_type = input("1.Banana 2.Strawberry 3.Milk\n4.Blueberry 5.Apple 6.Pear\n7.Finish making smoothie")
-    number_of_ingredient = input("How many would you like to add?\n")
+    print("\nWhich ingredient would you like to add?")
+    while True:
+     print("1.Banana\n2.Strawberry\n3.Milk\n4.Blueberry\n5.Apple\n6.Pear\n7.Finish making smoothie\n")
+     choice = input("Enter your choice ")
+     if choice=="7":
+        if len(smoothie_ingredients)>=1:
+            print(f"Your smoothie contains: {smoothie_ingredients}") # Print the local dictionary
+            print("Mixing...")
+            time.sleep(3)
+            money+=20#wait first i want to redo the way it stores ingredients used. i dont like using dictionary
+            print("Congrats!")
+            show_money()
+        else:
+            print("You do not have any ingredients added to your smoothie")
+        break
+     elif choice in ingredient_mapping:
+        quantity = int(input(f"How many {ingredient_mapping[choice]} would you like to add? "))
+        deduct_ingredients(ingredient_mapping[choice],quantity, smoothie_ingredients)
 
+     else:
+        print("Invalid input! Enter a number from 1-7")
+
+def shop():
+    global money
+    item1_cost = 200
+    item2_cost = 500
+    print("Welcome to the shop!")
+    print("Here, you can buy upgrades for your blender and better cashiers!")
+    time.sleep(0.5)
+    print("What would you like to buy?")
+    print(f"1.Upgrade blender (Cost: ${item1_cost})\n2.Upgrade cashiers (Cost: ${item2_cost})\n3.Go back to main menu")
+    while True:
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            if money >= item1_cost:
+                money -= item1_cost
+                print("Blender upgraded! You can now make smoothies faster!")
+                show_money()
+            else:
+                print("You don't have enough money to buy this item.")
+        elif choice == "2":
+            if money >= item2_cost:
+                money -= item2_cost
+                print("Cashiers upgraded! You can now serve customers faster!")
+                show_money()
+            else:
+                print("You don't have enough money to buy this item.")
+        elif choice == "3":
+            return
+        else:
+            print("Invalid choice!")
 
 starting_menu()
