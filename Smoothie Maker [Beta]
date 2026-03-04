@@ -107,11 +107,13 @@ def make_smoothie():
      choice = input("Enter your choice ")
      if choice=="7":
         if len(smoothie_ingredients)>=1:
-            print(f"Your smoothie contains: {smoothie_ingredients}") # Print the local dictionary
+            print(f"Your smoothie contains: {smoothie_ingredients}")
             print("Mixing...")
             time.sleep(3)
-            money+=20#wait first i want to redo the way it stores ingredients used. i dont like using dictionary
-            print("Congrats!")
+            smoothie_price=0
+            for i in range(quantity):
+                smoothie_price+=5
+            print(f"Congrats! You earned {smoothie_price}!")
             show_money()
         else:
             print("You do not have any ingredients added to your smoothie")
