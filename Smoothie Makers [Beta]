@@ -1,12 +1,15 @@
 import random, time
 money=0
+smoothies_blended=0
+blender_upgraded=False
+cashier_upgraded=False
 ingredients = {"Banana":0 ,"Strawberry":0,"Milk":0,"Blueberry":0,"Apple":0,"Pear":0}
 def starting_menu():
     print("Welcome to...")
     time.sleep(0.5)
     print("Smoothie Makers!")
     while True:
-        print("\nWhat would you like to do?\n1.Make a smoothie.\n2.Collect ingredients.\n3.Show money.\n4.Leave")
+        print("\nWhat would you like to do?\n1.Make a smoothie\n2.Collect ingredients\n3.Show money\n4.Shop\n5.Leave")
         choice = input("Enter your choice: ")
         if choice == "1":
             make_smoothie()
@@ -15,7 +18,10 @@ def starting_menu():
         elif choice == "3":
             show_money()
         elif choice == "4":
+            shop()
+        elif choice=="5":
             print("Thanks for playing!")
+            print("Game created by Ethan Tan and Pan Chenxuan")
             return
         else:
             print("Invalid choice!")
@@ -23,13 +29,15 @@ def starting_menu():
 def show_money():
     print(f"You have ${money}.")
 
+def display_smoothies_blended_count():
+    print(f"You have blended {smoothies_blended} smoothies.")
+
 def deduct_ingredients(ingredient_type, quantity, smoothie_ingredients):
     if ingredients[ingredient_type] >= quantity:
         ingredients[ingredient_type] -= quantity
-        for i in range(quantity):
-            smoothie_ingredients.append(ingredient_type)
+        smoothie_ingredients.extend([ingredient_type] * quantity)
         print(f"Used {quantity} of {ingredient_type}.")
-        
+
     else:
         print(f"Insufficient {ingredient_type}! You only have {ingredients[ingredient_type]}.")
 
@@ -69,25 +77,29 @@ def basic_area():
             print("Invalid choice!")
 
 def advanced_area():
-    print("Welcome to the advanced area!")
-    print("You can collect pear, apple, and blueberry here.")
-    while True:
-        print("\nWhat would you like to do?")
-        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
-        scavenge_choice = input("Enter your choice: ")
-        if scavenge_choice == "1":
-            print("Scavenging for ingredients...")
-            time.sleep(2)
-            found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
-            print(f"You found {found_ingredient}!")
-            ingredients[found_ingredient] += 1
-        elif scavenge_choice == "2":
-            return
-        else:
-            print("Invalid choice!")
+    if smoothies_blended < 5:
+        print("You need to blend at least 5 smoothies before accessing the advanced area!")
+        return
+    else:
+        print("Welcome to the advanced area!")
+        print("You can collect pear, apple, and blueberry here.")
+        while True:
+            print("\nWhat would you like to do?")
+            print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
+            scavenge_choice = input("Enter your choice: ")
+            if scavenge_choice == "1":
+                print("Scavenging for ingredients...")
+                time.sleep(2)
+                found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
+                print(f"You found {found_ingredient}!")
+                ingredients[found_ingredient] += 1
+            elif scavenge_choice == "2":
+                return
+            else:
+                print("Invalid choice!")
 
 def make_smoothie():
-    global money
+    global money, smoothies_blended
     smoothie_ingredients = []
     ingredient_mapping = {
         "1": "Banana",
@@ -97,7 +109,15 @@ def make_smoothie():
         "5": "Apple",
         "6": "Pear"
     }
-    print("Add ingredients to your smoothie:")
+    smoothie_prices_mapping={
+        "Banana": 3.5,
+        "Milk":3,
+        "Strawberry":4.5,
+        "Pear":7,
+        "Apple":8,
+        "Blueberry":10
+    }
+    print("\nAdd ingredients to your smoothie:")
     print("You have:")
     for i in ingredients:
         print(f"{i}:{ingredients[i]}")
@@ -112,50 +132,61 @@ def make_smoothie():
             time.sleep(3)
             smoothie_price=0
             for i in smoothie_ingredients:
-                smoothie_price+=5
+                smoothie_price+=smoothie_prices_mapping[i]
+            money+=smoothie_price
             print(f"Congrats! You sold your smoothie for ${smoothie_price}!")
+            smoothies_blended+=1
             show_money()
+            display_smoothies_blended_count()
         else:
             print("You do not have any ingredients added to your smoothie")
         break
      elif choice in ingredient_mapping:
         quantity = int(input(f"How many {ingredient_mapping[choice]} would you like to add? "))
+        if (len(smoothie_ingredients) + quantity) > 5:
+            print(f"Adding {quantity} {ingredient_mapping[choice]} would exceed the 5-ingredient limit. You can only add {5 - len(smoothie_ingredients)} more.")
+            continue
         deduct_ingredients(ingredient_mapping[choice],quantity, smoothie_ingredients)
 
      else:
         print("Invalid input! Enter a number from 1-7")
 
-#commented out to do later
-# def shop():
-#     global money
-#     item1_cost = 200
-#     item2_cost = 500
-#     print("Welcome to the shop!")
-#     print("Here, you can buy upgrades for your blender and better cashiers!")
-#     time.sleep(0.5)
-#     print("What would you like to buy?")
-#     print(f"1.Upgrade blender (Cost: ${item1_cost})\n2.Upgrade cashiers (Cost: ${item2_cost})\n3.Go back to main menu")
-#     while True:
-#         choice = input("Enter your choice: ")
-#         if choice == "1":
-#             if money >= item1_cost:
-#                 money -= item1_cost
-#                 item1_cost += 1000000000000000000000000000000000000
-#                 print("Blender upgraded! You can now make smoothies faster!")
-#                 show_money()
-#             else:
-#                 print("You don't have enough money to buy this item.")
-#         elif choice == "2":
-#             if money >= item2_cost:
-#                 money -= item2_cost
-#                 item2_cost += 1000000000000000000000000000000000000
-#                 print("Cashiers upgraded! You can now serve customers faster!")
-#                 show_money()
-#             else:
-#                 print("You don't have enough money to buy this item.")
-#         elif choice == "3":
-#             return
-#         else:
-#             print("Invalid choice!")
+def shop():
+    global money, blender_upgraded, cashier_upgraded
+    item1_cost = 200
+    item2_cost = 500
+    print("\nWelcome to the shop!")
+    print("Here, you can buy upgrades for your blender and better cashiers!")
+    time.sleep(0.5)
+    print("\nWhat would you like to buy?")
+    show_money()
+    print(f"1.Upgrade blender (Cost: ${item1_cost})\n2.Upgrade cashiers (Cost: ${item2_cost})\n3.Go back to main menu")
+    while True:
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            if blender_upgraded:
+                print("You have already bought this upgrade!")
+            elif money >= item1_cost:
+                money -= item1_cost
+                blender_limit = 10
+                blender_upgraded = True
+                print("Blender upgraded! You can now make smoothies faster!")
+                show_money()
+            else:
+                print("You don't have enough money to buy this item.")
+        elif choice == "2":
+            if cashier_upgraded:
+                print("You have already bought this upgrade!")
+            elif money >= item2_cost:
+                money -= item2_cost
+                cashier_upgraded = True
+                print("Cashiers upgraded! You can now serve customers faster!")
+                show_money()
+            else:
+                print("You don't have enough money to buy this item.")
+        elif choice == "3":
+            return
+        else:
+            print("Invalid choice!")
 
 starting_menu()
