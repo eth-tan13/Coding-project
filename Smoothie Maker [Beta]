@@ -77,22 +77,26 @@ def basic_area():
             print("Invalid choice!")
 
 def advanced_area():
-    print("Welcome to the advanced area!")
-    print("You can collect pear, apple, and blueberry here.")
-    while True:
-        print("\nWhat would you like to do?")
-        print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
-        scavenge_choice = input("Enter your choice: ")
-        if scavenge_choice == "1":
-            print("Scavenging for ingredients...")
-            time.sleep(2)
-            found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
-            print(f"You found {found_ingredient}!")
-            ingredients[found_ingredient] += 1
-        elif scavenge_choice == "2":
-            return
-        else:
-            print("Invalid choice!")
+    if smoothies_blended < 5:
+        print("You need to blend at least 5 smoothies before accessing the advanced area!")
+        return
+    else:
+        print("Welcome to the advanced area!")
+        print("You can collect pear, apple, and blueberry here.")
+        while True:
+            print("\nWhat would you like to do?")
+            print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
+            scavenge_choice = input("Enter your choice: ")
+            if scavenge_choice == "1":
+                print("Scavenging for ingredients...")
+                time.sleep(2)
+                found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
+                print(f"You found {found_ingredient}!")
+                ingredients[found_ingredient] += 1
+            elif scavenge_choice == "2":
+                return
+            else:
+                print("Invalid choice!")
 
 def make_smoothie():
     global money, smoothies_blended
@@ -139,6 +143,9 @@ def make_smoothie():
         break
      elif choice in ingredient_mapping:
         quantity = int(input(f"How many {ingredient_mapping[choice]} would you like to add? "))
+        if (len(smoothie_ingredients) + quantity) > 5:
+            print(f"Adding {quantity} {ingredient_mapping[choice]} would exceed the 5-ingredient limit. You can only add {5 - len(smoothie_ingredients)} more.")
+            continue
         deduct_ingredients(ingredient_mapping[choice],quantity, smoothie_ingredients)
 
      else:
@@ -161,6 +168,7 @@ def shop():
                 print("You have already bought this upgrade!")
             elif money >= item1_cost:
                 money -= item1_cost
+                blender_limit = 10
                 blender_upgraded = True
                 print("Blender upgraded! You can now make smoothies faster!")
                 show_money()
