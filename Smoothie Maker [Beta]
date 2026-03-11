@@ -1,5 +1,6 @@
 import random, time
 money=0
+haoaoaooao=0
 smoothies_blended=0
 blender_limit=5
 backpack_limit=10
