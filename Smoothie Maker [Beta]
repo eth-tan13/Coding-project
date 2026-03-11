@@ -2,8 +2,11 @@ import random, time
 money=0
 smoothies_blended=0
 blender_limit=5
+cashier_boost=1
 backpack_limit=10
+items_in_backpack=0
 item1_count=0
+item2_count=0
 item3_count=0
 cashier_upgraded=False
 ingredients = {"Banana":0 ,"Strawberry":0,"Milk":0,"Blueberry":0,"Apple":0,"Pear":0}
@@ -47,10 +50,12 @@ def display_smoothies_blended_count():
     print(f"You have blended {smoothies_blended} smoothies.")
 
 def deduct_ingredients(ingredient_type, quantity, smoothie_ingredients):
+    global items_in_backpack
     if ingredients[ingredient_type] >= quantity:
         ingredients[ingredient_type] -= quantity
         smoothie_ingredients.extend([ingredient_type] * quantity)
         print(f"Used {quantity} of {ingredient_type}.")
+        items_in_backpack-=quantity
 
     else:
         print(f"Insufficient {ingredient_type}! You only have {ingredients[ingredient_type]}.")
@@ -73,6 +78,7 @@ def collect_ingredients():
             print("Invalid choice!")
 
 def basic_area():
+    global items_in_backpack
     print("Welcome to the basic area!")
     print("You can collect milk, banana, and strawberry here.")
     while True:
@@ -80,11 +86,16 @@ def basic_area():
         print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
         scavenge_choice = input("Enter your choice: ")
         if scavenge_choice == "1":
-            print("Scavenging for ingredients...")
-            time.sleep(random.randint(2, 6))
-            found_ingredient = random.choice(["Milk", "Banana", "Strawberry"])
-            print(f"You found {found_ingredient}!")
-            ingredients[found_ingredient] += 1
+            if items_in_backpack==backpack_limit:
+                print("Backpack limit reached!")
+                continue
+            else:
+                print("Scavenging for ingredients...")
+                time.sleep(random.randint(2, 6))
+                found_ingredient = random.choice(["Milk", "Banana", "Strawberry"])
+                print(f"You found {found_ingredient}!")
+                ingredients[found_ingredient] += 1
+                items_in_backpack+=1
         elif scavenge_choice == "2":
             return
         else:
@@ -102,11 +113,16 @@ def advanced_area():
             print("1.Scavenge for ingredients.\n2.Go back to ingredient collection menu. ")
             scavenge_choice = input("Enter your choice: ")
             if scavenge_choice == "1":
-                print("Scavenging for ingredients...")
-                time.sleep(random.randint(2, 6))
-                found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
-                print(f"You found {found_ingredient}!")
-                ingredients[found_ingredient] += 1
+                if items_in_backpack==backpack_limit:
+                    print("Backpack limit reached!")
+                    continue
+                else:
+                    print("Scavenging for ingredients...")
+                    time.sleep(random.randint(2, 6))
+                    found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
+                    print(f"You found {found_ingredient}!")
+                    ingredients[found_ingredient] += 1
+                    items_in_backpack+=1
             elif scavenge_choice == "2":
                 return
             else:
@@ -147,6 +163,7 @@ def make_smoothie():
             smoothie_price=0
             for i in smoothie_ingredients:
                 smoothie_price+=smoothie_prices_mapping[i]
+            smoothie_price = smoothie_price * cashier_boost
             money+=smoothie_price
             print(f"Congrats! You sold your smoothie for ${smoothie_price}!")
             smoothies_blended+=1
@@ -167,8 +184,14 @@ def make_smoothie():
 
 def shop():
     global money, cashier_upgraded, blender_limit, backpack_limit, item1_count, item3_count
-    item1_cost = 100+10*item1_count
-    item2_cost = 300
+    if item1_count = 0:
+        item1_cost = 100
+    else:
+        item1_cost = 100+150*item1_count*item1_count
+    if item1_count = 0:
+        item2_cost = 300
+    else:
+        item2_cost = 300+450*item2_count*item2_count
     item3_cost = 100+5*item3_count
     print("\nWelcome to the shop!")
     print("Here, you can buy upgrades for your blender and better cashiers!")
@@ -182,7 +205,7 @@ def shop():
             if money >= item1_cost:
                 money -= item1_cost
                 blender_limit +=5
-                item1_count+=1 # Fix: Increment item1_count to increase future upgrade costs
+                item1_count+=1 
                 print("Blender upgraded! You can now add more ingredients to your smoothie!")
                 show_money()
             else:
@@ -192,8 +215,10 @@ def shop():
                 print("You have already bought this upgrade!")
             elif money >= item2_cost:
                 money -= item2_cost
+                item2_count += 1
+                cashier_boost = cashier_boost + 0.2
                 cashier_upgraded = True
-                print("Cashiers upgraded! You can now serve customers faster!")
+                print("Cashiers upgraded! You can now sell smoothies at a higher price!")
                 show_money()
             else:
                 print("You don't have enough money to buy this item.")
