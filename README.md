@@ -76,23 +76,6 @@ Players can spend money to upgrade their equipment.
 
 ---
 
-# 💻 How to Run the Game
-
-1. Make sure Python is installed.
-2. Download or clone this repository:
-
-```
-git clone https://github.com/your-username/smoothie-makers.git
-```
-
-3. Run the game:
-
-```
-python smoothie_game.py
-```
-
----
-
 # 🎯 How to Play
 
 1. Collect ingredients.
