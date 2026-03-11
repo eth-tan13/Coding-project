@@ -1,126 +1,127 @@
-Smoothie Makers 🍓🥤
+# Smoothie Makers 🍓🥤
 
-Smoothie Makers is a text-based Python game where players collect ingredients, blend smoothies, earn money, and upgrade their equipment to grow their smoothie business.
+**Smoothie Makers** is a text-based Python game where players collect ingredients, blend smoothies, earn money, and upgrade their equipment to grow their smoothie business.
 
-Created by Ethan Tan and Pan Chenxuan.
+Created by **Ethan Tan** and **Pan Chenxuan**.
 
-🎮 Game Features
+---
 
-Collect ingredients from different areas
+# 🎮 Game Features
 
-Blend custom smoothies
+* Collect ingredients from different areas
+* Blend custom smoothies
+* Earn money by selling smoothies
+* Upgrade your blender to add more ingredients
+* Upgrade your backpack to carry more ingredients
+* Unlock advanced ingredient areas
+* Simple shop system with upgrades
+* Hidden admin panel
 
-Earn money by selling smoothies
+---
 
-Upgrade your blender to add more ingredients
-
-Upgrade your backpack to carry more ingredients
-
-Unlock advanced ingredient areas
-
-Simple shop system with upgrades
-
-Hidden admin panel for fun cheats
-
-🧾 Ingredients
+# 🧾 Ingredients
 
 The game currently includes the following ingredients:
 
-Banana
+* Banana
+* Strawberry
+* Milk
+* Blueberry
+* Apple
+* Pear
 
-Strawberry
+Different ingredients give different smoothie prices.
 
-Milk
+---
 
-Blueberry
+# 🗺️ Areas
 
-Apple
-
-Pear
-
-Each ingredient contributes differently to smoothie prices.
-
-🗺️ Areas
-Basic Area
+### Basic Area
 
 Available at the start of the game.
 
-Collect: Milk, Banana, Strawberry
+You can collect:
 
-Advanced Area
+* Milk
+* Banana
+* Strawberry
 
-Unlocked after blending 5 smoothies.
+### Advanced Area
 
-Collect: Blueberry, Apple, Pear
+Unlocked after blending **5 smoothies**.
 
-🛒 Shop Upgrades
+You can collect:
 
-Players can spend money to upgrade their equipment:
+* Blueberry
+* Apple
+* Pear
 
-Blender Upgrade: Add more ingredients to a smoothie
+---
 
-Cashier Upgrade: Serve customers faster
+# 🛒 Shop Upgrades
 
-Backpack Upgrade: Carry more ingredients
+Players can spend money to upgrade their equipment.
 
-💻 How to Play / Run the Game
+### Blender Upgrade
 
-You can play the game without installing Git!
+* Increases the number of ingredients you can add to a smoothie.
 
-Step 1: Download the Game
+### Cashier Upgrade
 
-Go to the GitHub repository page.
+* Improves your shop efficiency.
 
-Click the green Code button.
+### Backpack Upgrade
 
-Click Download ZIP.
+* Allows you to carry more ingredients.
 
-Extract the ZIP file to any folder.
+---
 
-Step 2: Run the Game
+# 💻 How to Run the Game
 
-Make sure you have Python installed.
+1. Make sure Python is installed.
+2. Download or clone this repository:
 
-Open the folder where the game is.
+```
+git clone https://github.com/your-username/smoothie-makers.git
+```
 
-Make sure the file is named smoothie_game.py.
+3. Run the game:
 
-Run the game with:
-
+```
 python smoothie_game.py
+```
 
-⚠️ If the file is not .py, copy the code into a new file named smoothie_game.py.
+---
 
-🎯 How to Play the Game
+# 🎯 How to Play
 
-Collect ingredients.
+1. Collect ingredients.
+2. Blend smoothies.
+3. Sell them to earn money.
+4. Buy upgrades from the shop.
+5. Unlock the advanced ingredient area.
 
-Blend smoothies.
+Try to create the best smoothies and grow your smoothie business!
 
-Sell them to earn money.
+---
 
-Buy upgrades from the shop.
+# 🛠️ Built With
 
-Unlock the advanced ingredient area.
+* Python
+* Random module
+* Time module
 
-Make the tastiest smoothies and grow your smoothie empire!
+---
 
-🛠️ Built With
+# 👨‍💻 Developers
 
-Python
+* Ethan Tan
+* Pan Chenxuan
 
-random module
+---
 
-time module
-
-👨‍💻 Developers
-
-Ethan Tan
-
-Pan Chenxuan
-
-📜 License
+# 📜 License
 
 All rights reserved.
 
-You may not copy, distribute, or use this project for any purpose without the explicit permission of the creators, Ethan Tan and Pan Chenxuan.
+You may **not** copy, distribute, or use this project without the explicit permission of the creators, Ethan Tan and Pan Chenxuan.
