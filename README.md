@@ -1,108 +1,126 @@
-# Smoothie Makers 🍓🥤
+Smoothie Makers 🍓🥤
 
-**Smoothie Makers** is a text-based Python game where players collect ingredients, blend smoothies, earn money, and upgrade their equipment to grow their smoothie business.
+Smoothie Makers is a text-based Python game where players collect ingredients, blend smoothies, earn money, and upgrade their equipment to grow their smoothie business.
 
-Created by **Ethan Tan** and **Pan Chenxuan**.
+Created by Ethan Tan and Pan Chenxuan.
 
----
+🎮 Game Features
 
-# 🎮 Game Features
+Collect ingredients from different areas
 
-* Collect ingredients from different areas
-* Blend custom smoothies
-* Earn money by selling smoothies
-* Upgrade your blender to add more ingredients
-* Upgrade your backpack to carry more ingredients
-* Unlock advanced ingredient areas
-* Simple shop system with upgrades
-* Hidden admin panel
+Blend custom smoothies
 
----
+Earn money by selling smoothies
 
-# 🧾 Ingredients
+Upgrade your blender to add more ingredients
+
+Upgrade your backpack to carry more ingredients
+
+Unlock advanced ingredient areas
+
+Simple shop system with upgrades
+
+Hidden admin panel for fun cheats
+
+🧾 Ingredients
 
 The game currently includes the following ingredients:
 
-* Banana
-* Strawberry
-* Milk
-* Blueberry
-* Apple
-* Pear
+Banana
 
-Different ingredients give different smoothie prices.
+Strawberry
 
----
+Milk
 
-# 🗺️ Areas
+Blueberry
 
-### Basic Area
+Apple
+
+Pear
+
+Each ingredient contributes differently to smoothie prices.
+
+🗺️ Areas
+Basic Area
 
 Available at the start of the game.
 
-You can collect:
+Collect: Milk, Banana, Strawberry
 
-* Milk
-* Banana
-* Strawberry
+Advanced Area
 
-### Advanced Area
+Unlocked after blending 5 smoothies.
 
-Unlocked after blending **5 smoothies**.
+Collect: Blueberry, Apple, Pear
 
-You can collect:
+🛒 Shop Upgrades
 
-* Blueberry
-* Apple
-* Pear
+Players can spend money to upgrade their equipment:
 
----
+Blender Upgrade: Add more ingredients to a smoothie
 
-# 🛒 Shop Upgrades
+Cashier Upgrade: Serve customers faster
 
-Players can spend money to upgrade their equipment.
+Backpack Upgrade: Carry more ingredients
 
-### Blender Upgrade
+💻 How to Play / Run the Game
 
-* Increases the number of ingredients you can add to a smoothie.
+You can play the game without installing Git!
 
-### Cashier Upgrade
+Step 1: Download the Game
 
-* Improves your shop efficiency.
+Go to the GitHub repository page.
 
-### Backpack Upgrade
+Click the green Code button.
 
-* Allows you to carry more ingredients.
+Click Download ZIP.
 
----
+Extract the ZIP file to any folder.
 
-# 🎯 How to Play
+Step 2: Run the Game
 
-1. Collect ingredients.
-2. Blend smoothies.
-3. Sell them to earn money.
-4. Buy upgrades from the shop.
-5. Unlock the advanced ingredient area.
+Make sure you have Python installed.
 
-Try to create the best smoothies and grow your smoothie business!
+Open the folder where the game is.
 
----
+Make sure the file is named smoothie_game.py.
 
-# 🛠️ Built With
+Run the game with:
 
-* Python
-* Random module
-* Time module
+python smoothie_game.py
 
----
+⚠️ If the file is not .py, copy the code into a new file named smoothie_game.py.
 
-# 👨‍💻 Developers
+🎯 How to Play the Game
 
-* Ethan Tan
-* Pan Chenxuan
+Collect ingredients.
 
----
+Blend smoothies.
 
-# 📜 License
+Sell them to earn money.
 
-This project is free to use for learning and educational purposes.
+Buy upgrades from the shop.
+
+Unlock the advanced ingredient area.
+
+Make the tastiest smoothies and grow your smoothie empire!
+
+🛠️ Built With
+
+Python
+
+random module
+
+time module
+
+👨‍💻 Developers
+
+Ethan Tan
+
+Pan Chenxuan
+
+📜 License
+
+All rights reserved.
+
+You may not copy, distribute, or use this project for any purpose without the explicit permission of the creators, Ethan Tan and Pan Chenxuan.
