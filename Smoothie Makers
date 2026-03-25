@@ -1,5 +1,4 @@
 import random, time
-
 class SmoothieMakersGame:
     def __init__(self):
         self.money = 0
@@ -11,13 +10,13 @@ class SmoothieMakersGame:
         self.item1_count = 0
         self.item2_count = 0
         self.item3_count = 0
-        self.ingredients = {"Banana":0 ,"Strawberry":0,"Milk":0,"Blueberry":0,"Apple":0,"Pear":0}
+        self.ingredients = {}
 
     def get_user_choice(self, prompt_message, options_dict):
         while True:
             print(prompt_message)
             for key, value in options_dict.items():
-                print(f"{key}. {value}")
+                print(f"{key}. {value}")      
             choice = input("Enter your choice: ")
             if choice in options_dict:
                 return choice
@@ -33,7 +32,8 @@ class SmoothieMakersGame:
             "2": "Collect ingredients",
             "3": "Show money",
             "4": "Shop",
-            "5": "Leave"
+            "5": "Ingredients info",
+            "6": "Leave"
         }
         while True:
             choice = self.get_user_choice("\nWhat would you like to do?", menu_options)
@@ -46,9 +46,19 @@ class SmoothieMakersGame:
             elif choice == "4":
                 self.shop()
             elif choice == "5":
+                self.ingredients_info()
+            elif choice == "6":
                 print("Thanks for playing!")
                 print("Game created by Ethan Tan and Pan Chenxuan")
                 return
+
+    def ingredients_index(self):
+        print("\nIngredients Index:")
+        
+
+    def ingredients_info(self):
+        print("\nIngredients Info:")
+        
 
     def show_money(self):
         print(f"You have ${self.money}.")
@@ -56,20 +66,37 @@ class SmoothieMakersGame:
     def display_smoothies_blended_count(self):
         print(f"You have blended {self.smoothies_blended} smoothies.")
 
+    def add_ingredient(self, ingredient_name, amount=1):
+        if self.items_in_backpack + amount > self.backpack_limit:
+            print("Not enough space in backpack!")
+            return False
+        if ingredient_name not in self.ingredients:
+          self.ingredients[ingredient_name] = 0   
+        self.ingredients[ingredient_name] += amount
+        self.items_in_backpack += amount
+        print(f"You got {amount} {ingredient_name}!")
+        print(f"You have {self.items_in_backpack} items in your backpack.")
+        return True
+
     def deduct_ingredients(self, ingredient_type, quantity, smoothie_ingredients):
+        if ingredient_type not in self.ingredients or self.ingredients[ingredient_type] <= 0:
+            print(f"You don't have any {ingredient_type}!")
+            return
+
         if self.ingredients[ingredient_type] >= quantity:
             self.ingredients[ingredient_type] -= quantity
             smoothie_ingredients.extend([ingredient_type] * quantity)
-            print(f"Used {quantity} of {ingredient_type}.")
             self.items_in_backpack -= quantity
+            print(f"Used {quantity} of {ingredient_type}.")
         else:
             print(f"Insufficient {ingredient_type}! You only have {self.ingredients[ingredient_type]}.")
-
+            
     def collect_ingredients(self):
         area_options = {
             "1": "Basic Area",
             "2": "Advanced Area",
-            "3": "Go back to main menu"
+            "3": "Beach Area",
+            "4": "Go back to main menu"
         }
         while True:
             area_choice = self.get_user_choice("\nWhere would you like to collect ingredients?", area_options)
@@ -82,6 +109,10 @@ class SmoothieMakersGame:
                 time.sleep(5)
                 self.advanced_area()
             elif area_choice == "3":
+                print("Heading to the beach area...\n")
+                time.sleep(7)
+                self.beach_area()
+            elif area_choice == "4":
                 return
 
     def basic_area(self):
@@ -94,16 +125,11 @@ class SmoothieMakersGame:
         while True:
             scavenge_choice = self.get_user_choice("\nWhat would you like to do?", area_options)
             if scavenge_choice == "1":
-                if self.items_in_backpack == self.backpack_limit:
-                    print("Backpack limit reached!")
-                    continue
-                else:
                     print("Scavenging for ingredients...")
                     time.sleep(random.randint(2, 6))
                     found_ingredient = random.choice(["Milk", "Banana", "Strawberry"])
                     print(f"You found {found_ingredient}!")
-                    self.ingredients[found_ingredient] += 1
-                    self.items_in_backpack += 1
+                    self.add_ingredient(found_ingredient)
             elif scavenge_choice == "2":
                 return
 
@@ -121,16 +147,31 @@ class SmoothieMakersGame:
             while True:
                 scavenge_choice = self.get_user_choice("\nWhat would you like to do?", area_options)
                 if scavenge_choice == "1":
-                    if self.items_in_backpack == self.backpack_limit:
-                        print("Backpack limit reached!")
-                        continue
-                    else:
                         print("Scavenging for ingredients...")
                         time.sleep(random.randint(2, 6))
                         found_ingredient = random.choice(["Blueberry", "Apple", "Pear"])
-                        print(f"You found {found_ingredient}!")
-                        self.ingredients[found_ingredient] += 1
-                        self.items_in_backpack += 1
+                        self.add_ingredient(found_ingredient)
+                elif scavenge_choice == "2":
+                    return
+
+    def beach_area(self):
+        if self.smoothies_blended < 20:
+            print("You need to blend at least 20 smoothies before accessing the beach area!")
+            return
+        else:
+            print("Welcome to the beach area!")
+            print("You can collect rare ingredients here.")
+            area_options = {
+                "1": "Scavenge for ingredients.",
+                "2": "Go back to ingredient collection menu."
+            }
+            while True:
+                scavenge_choice = self.get_user_choice("\nWhat would you like to do?", area_options)
+                if scavenge_choice == "1":
+                        print("Scavenging for ingredients...")
+                        time.sleep(random.randint(2, 6))
+                        found_ingredient = random.choice(["Ice Cream", "Coconut", "Sugar"])
+                        self.add_ingredient(found_ingredient)
                 elif scavenge_choice == "2":
                     return
 
@@ -138,11 +179,12 @@ class SmoothieMakersGame:
         smoothie_ingredients = []
         ingredient_mapping = {
             "1": "Banana", "2": "Strawberry", "3": "Milk",
-            "4": "Blueberry", "5": "Apple", "6": "Pear"
+            "4": "Blueberry", "5": "Apple", "6": "Pear",
+            "7": "Ice Cream", "8": "Coconut", "9": "Sugar"
         }
-        smoothie_prices_mapping={
-            "Banana": 3.5, "Milk":3, "Strawberry":4.5,
-            "Pear":7, "Apple":8, "Blueberry":10
+        smoothie_prices_mapping = {
+            "Milk": 2, "Banana": 3, "Strawberry": 4, "Apple": 6,
+            "Pear": 7, "Blueberry":8 , "Coconut": 10, "Ice Cream": 12, "Sugar":0
         }
         while True:
             print("\nAdd ingredients to your smoothie:")
@@ -151,16 +193,24 @@ class SmoothieMakersGame:
                 print(f"{item}: {count}")
 
             ingredient_choices = {k: v for k, v in ingredient_mapping.items()}
-            ingredient_choices["7"] = "Finish making smoothie"
+            ingredient_choices["10"] = "Finish making smoothie"
 
             choice = self.get_user_choice("\nWhich ingredient would you like to add?", ingredient_choices)
 
-            if choice == "7":
+            if choice == "10":
                 if len(smoothie_ingredients) >= 1:
                     print(f"Your smoothie contains: {', '.join(smoothie_ingredients)}")
                     print("Mixing...")
                     time.sleep(3)
-                    smoothie_price = sum(smoothie_prices_mapping[i] for i in smoothie_ingredients) * self.cashier_boost
+                    smoothie_price=0
+                    sugar_count=0
+                    for i in smoothie_ingredients:
+                        if i =="Sugar":
+                            sugar_count+=1
+                        else:
+                            smoothie_price+=smoothie_prices_mapping[i]
+                    sugar_multiplier=1+sugar_count*0.05
+                    smoothie_price=smoothie_price*self.cashier_boost*sugar_multiplier
                     self.money += smoothie_price
                     self.smoothies_blended += 1
                     print(f"Congrats! You sold your smoothie for ${smoothie_price}!")
