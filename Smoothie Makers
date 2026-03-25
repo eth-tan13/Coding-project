@@ -11,7 +11,6 @@ class SmoothieMakersGame:
         self.item1_count = 0
         self.item2_count = 0
         self.item3_count = 0
-        self.cashier_upgraded = False
         self.ingredients = {"Banana":0 ,"Strawberry":0,"Milk":0,"Blueberry":0,"Apple":0,"Pear":0}
 
     def get_user_choice(self, prompt_message, options_dict):
@@ -213,9 +212,7 @@ class SmoothieMakersGame:
                 else:
                     print("You don't have enough money to buy this item.")
             elif choice == "2":
-                if self.cashier_upgraded:
-                    print("You have already bought this upgrade!")
-                elif self.money >= item2_cost:
+                if self.money >= item2_cost:
                     self.money -= item2_cost
                     self.item2_count += 1
                     self.cashier_boost += 0.2
