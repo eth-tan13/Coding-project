@@ -54,12 +54,27 @@ class SmoothieMakersGame:
 
     def ingredients_index(self):
         print("\nIngredients Index:")
-        
+        print("1. Milk - Basic ingredient")
+        print("2. Banana - Basic ingredient")
+        print("3. Strawberry - Basic ingredient")
+        print("4. Blueberry - Advanced ingredient")
+        print("5. Apple - Advanced ingredient")
+        print("6. Pear - Advanced ingredient")
+        print("7. Ice Cream - Rare ingredient")
+        print("8. Coconut - Rare ingredient")
+        print("9. Sugar - Rare ingredient")
 
     def ingredients_info(self):
         print("\nIngredients Info:")
-        
-
+        print("Milk: A basic ingredient that adds creaminess to your smoothie. Price/unit: $2")
+        print("Banana: A basic ingredient that adds sweetness and thickness to your smoothie. Price/unit: $3")
+        print("Strawberry: A basic ingredient that adds a fruity flavor to your smoothie. Price/unit: $4")
+        print("Blueberry: An advanced ingredient that adds a sweet and tangy flavor to your smoothie. Price/unit: $8")
+        print("Apple: An advanced ingredient that adds a crisp and refreshing flavor to your smoothie Price/unit: $6")
+        print("Pear: An advanced ingredient that adds a sweet and juicy flavor to your smoothie. Price/unit: $7")
+        print("Ice Cream: A rare ingredient that adds a rich and creamy flavor to your smoothie. Price/unit: $12")
+        print("Coconut: A rare ingredient that adds a tropical flavor to your smoothie. Price/unit: $10")   
+        print("Sugar: A rare ingredient that adds sweetness to your smoothie. Multiplier/unit added: 5% increase")#my cher explain   why never     
     def show_money(self):
         print(f"You have ${self.money}.")
 
