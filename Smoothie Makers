@@ -22,7 +22,36 @@ class SmoothieMakersGame:
             "Coconut": "A rare ingredient that adds a tropical flavor to your smoothie. Price/unit: $10",
             "Sugar": "A rare ingredient that adds sweetness to your smoothie. Multiplier/unit added: 5% increase"
         }
-
+    def admin_panel(self):
+        print("\nEntering admin panel...")
+        time.sleep(1)
+        print("Enter the secret code to access the admin panel:")
+        code = input("Secret code: ")
+        if code != "cx":
+            print("Incorrect code! Returning to main menu.")
+            return
+        self.money = 10000
+        self.smoothies_blended = 100
+        self.blender_limit = 50
+        self.cashier_boost = 5
+        self.backpack_limit = 100
+        self.items_in_backpack = 0
+        self.item1_count = 10
+        self.item2_count = 10
+        self.item3_count = 10
+        self.ingredients = {
+            "Milk": 50,
+            "Banana": 50,
+            "Strawberry": 50,
+            "Blueberry": 50,    
+            "Apple": 50,
+            "Pear": 50,
+            "Ice Cream": 50,
+            "Coconut": 50,
+            "Sugar": 50 
+        }         
+        print("Admin panel activated! You have been given a large amount of money, ingredients, and upgrades for testing purposes.")
+    
     def get_user_choice(self, prompt_message, options_dict):
         while True:
             print(prompt_message)
@@ -62,6 +91,8 @@ class SmoothieMakersGame:
                 print("Thanks for playing!")
                 print("Game created by Ethan Tan and Pan Chenxuan")
                 return
+            elif choice == "admin":
+                self.admin_panel()
 
     def ingredients_index(self):
         print("\nIngredients Index:")
